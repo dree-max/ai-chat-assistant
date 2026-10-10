@@ -1,0 +1,25 @@
+# Environment variables and local secrets
+.env
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
+
+# Streamlit / OS / editor noise
+.streamlit/secrets.toml
+.DS_Store
+Thumbs.db
