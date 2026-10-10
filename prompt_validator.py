@@ -1,23 +1,22 @@
-""""
-Prompt validation logic for the AI Chat Assistant
+"""Prompt validation layer for the AI chat assistant lab.
 
-Checks user input for known prompt injection patterns before the message is ever sent to the AI model
+Checks user input for known prompt-injection patterns before the message
+is ever sent to the AI model.
 """
 
 from __future__ import annotations
 
-# Known prompt injection / jailbreak phrases. Matched ah=gainst lowercase input.
 
-BLOCKED_PATTERNS = [
+# Known prompt-injection / jailbreak phrases. Matched against lowercased input.
+BLOCKED_PATTERNS: list[str] = [
     "ignore previous instructions",
     "ignore all previous instructions",
-    "ignore previous directions",   
     "forget your rules",
-    "forget your instructions",
     "reveal your system prompt",
+    "print your system prompt",
     "show your system prompt",
     "hidden instructions",
-    "developer mindeset",
+    "developer message",
     "developer mode",
     "system instructions",
     "system prompt",
@@ -27,16 +26,15 @@ BLOCKED_PATTERNS = [
     "jailbreak",
 ]
 
-BLOCKED_MESSAGE = "This request contains a prompt injection attempt and cannot be processed. Please rephrase your message."
+BLOCKED_MESSAGE = "This request looks like a prompt injection attempt and was blocked."
+
 
 def validate_prompt(user_input: str) -> tuple[bool, str]:
-    """Validate user input for known prompt injection patterns.
+    """Validate a user prompt against known injection patterns.
 
-    Args:
-        user_input (str): The user's input message.
-
-        Returns:
-        (False, BLOCKED_MESSAGE) if a blocked pattern is found, otherwise (True, user_input).
+    Returns:
+        (False, BLOCKED_MESSAGE) if a blocked pattern is found.
+        (True, "") if the prompt is allowed.
     """
     lowered = user_input.lower()
 
@@ -44,4 +42,4 @@ def validate_prompt(user_input: str) -> tuple[bool, str]:
         if pattern in lowered:
             return False, BLOCKED_MESSAGE
 
-    return True, user_input
+    return True, ""
